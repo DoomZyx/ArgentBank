@@ -1,5 +1,12 @@
+import Footer from "../../components/Footer/footer";
+import Nav from "../../components/Header/nav";
+import "../Login/_login.scss"
+
+
 function Login() {
   return (
+    <>
+    <Nav />
     <main className="main bg-dark">
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
@@ -23,6 +30,8 @@ function Login() {
         </form>
       </section>
     </main>
+    <Footer />
+    </>
   );
 }
 

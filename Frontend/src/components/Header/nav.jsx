@@ -1,4 +1,5 @@
 import "./_nav.scss"
+import agentBankLogo from "../../assets/img/argentBankLogo.png"
 
 function Nav() {
  return (
@@ -6,7 +7,7 @@ function Nav() {
   <a className="main-nav-logo" href="./index.html">
     <img
       className="main-nav-logo-image"
-      src="./img/argentBankLogo.png"
+      src={agentBankLogo}
       alt="Argent Bank Logo"
     />
     <h1 className="sr-only">Argent Bank</h1>
