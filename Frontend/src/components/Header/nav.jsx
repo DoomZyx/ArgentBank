@@ -1,4 +1,3 @@
-import "./_nav.scss"
 import agentBankLogo from "../../assets/img/argentBankLogo.png"
 
 function Nav() {

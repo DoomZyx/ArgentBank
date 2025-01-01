@@ -1,6 +1,6 @@
 import Nav from "../../components/Header/nav";
 import Footer from "../../components/Footer/footer";
-import "../Home/_home.scss";
+import "../../main.scss";
 
 import IconChat from "../../assets/img/icon-chat.png";
 import IconMoney from "../../assets/img/icon-money.png";
