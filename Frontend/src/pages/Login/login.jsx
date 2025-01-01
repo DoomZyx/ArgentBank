@@ -2,6 +2,7 @@ import Footer from "../../components/Footer/footer";
 import Nav from "../../components/Header/nav";
 import "../../main.scss";
 
+import { useAuth } from "../../components/AuthCheck/Authcheck";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../API/API";
@@ -11,22 +12,19 @@ function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("handleSubmit appelé");
 
     try {
       const result = await loginUser(email, password);
-      console.log("Réponse API brute :", result);
 
       if (result && result.body && result.body.token) {
-        console.log("Condition validée : token reçu :", result.body.token);
-        sessionStorage.setItem("token", result.body.token);
-        console.log("Token sauvegardé :", sessionStorage.getItem("token")); // Vérifiez ici
-        setErrorMessage(""); // Efface les erreurs précédentes
+        login(result.body.token);
+        setErrorMessage("");
         setTimeout(() => {
-          navigate("/user-page"); // Vérifiez que cette route existe
+          navigate("/user-page");
         }, 500);
       } else {
         console.log("Condition non validée : Pas de token");
