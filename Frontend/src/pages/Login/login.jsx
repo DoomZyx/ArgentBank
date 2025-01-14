@@ -1,74 +1,65 @@
 import { useState } from "react";
-import Footer from "../../components/Footer/footer";
-import Nav from "../../components/Header/nav";
-import "../../main.scss";
+import { useAuth } from "../../components/AuthCheck/AuthCheck";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../API/API";
 
 function Login() {
   const [email, setEmail] = useState("");
-  const [password, setpassword] = useState("");
-  const [error, setError] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const { login } = useAuth(); // Importez la fonction login
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     try {
-      const response = await loginUser(email, password);
+      const result = await loginUser(email, password);
 
-      if (response && response.body && response.body.token) {
-        localStorage.setItem("token", response.body.token); // Stocker le token
-        setTimeout(() => {
-          window.location.href = "/user-page";
-        }, 500);
+      if (result && result.body && result.body.token) {
+        console.log("Connexion réussie, token reçu :", result.body.token); // Vérifiez que ceci s'affiche
+        login(result.body.token); // Appelez login pour mettre à jour le contexte
+        setErrorMessage("");
+        navigate("/user-page");
       } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Une erreur est survenue.");
+        setErrorMessage("Email ou mot de passe incorrect");
       }
     } catch (error) {
-      setError("Erreur de connexion. Veuillez réessayer.");
+      console.error("Erreur lors de la connexion :", error);
+      setErrorMessage("Une erreur s'est produite. Veuillez réessayer.");
     }
   };
 
   return (
-    <>
-      <Nav />
-      <main className="main bg-dark">
-        <section className="sign-in-content">
-          <i className="fa fa-user-circle sign-in-icon"></i>
-          <h1>Sign In</h1>
-          <form id="form" onSubmit={handleSubmit}>
-            <div className="input-wrapper">
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="input-wrapper">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setpassword(e.target.value)}
-              />
-            </div>
-            <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
-              <label htmlFor="remember-me">Remember me</label>
-            </div>
-            <button type="submit" className="sign-in-button">
-              Sign In
-            </button>
-            {error && <p className="error">{error}</p>}
-          </form>
-        </section>
-      </main>
-      <Footer />
-    </>
+    <main className="main bg-dark">
+      <section className="sign-in-content">
+        <h1>Sign In</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="input-wrapper">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button type="submit" className="sign-in-button">
+            Sign In
+          </button>
+        </form>
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      </section>
+    </main>
   );
 }
 
