@@ -20,8 +20,12 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
+  const getToken = () => {
+    return sessionStorage.getItem("token");
+  }
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, getToken }}>
       {children}
     </AuthContext.Provider>
   );
