@@ -1,4 +1,4 @@
-import { useAuth } from "Store/Login/AuthCheck/AuthProvider";
+import { useAuth } from "Store/Features/Login/AuthCheck/AuthProvider";
 
 const API_BASE_URL = "http://localhost:3001/api";
 
@@ -35,7 +35,7 @@ export async function loginUser(email, password) {
   }
 }
 
-// Récupération des données de l'utilsateur connecté 
+// Récupération des données de l'utilsateur connecté
 
 export async function getUser(token) {
   const { getToken } = useAuth();
@@ -45,24 +45,26 @@ export async function getUser(token) {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-       Authorization: `Bearer ${token}`
-    }
-  }
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   try {
     const response = await fetch(
       `${API_BASE_URL}/v1/user/profile`,
       requestOption
-    )
+    );
     if (!response.ok) {
-      throw new Error(`Erreur : ${response.status}`)
+      throw new Error(`Erreur : ${response.status}`);
     }
 
     const data = await response.json();
     return data;
-
   } catch (error) {
-    console.error("Erreur lors de la récupération des données de l'utilsateur connecté ;" , error)
-    throw new Error
+    console.error(
+      "Erreur lors de la récupération des données de l'utilsateur connecté ;",
+      error
+    );
+    throw new Error();
   }
 }

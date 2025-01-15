@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Home/home";
 import Login from "./pages/Login/login";
 import UserPage from "./pages/Users/users";
-import { AuthProvider } from "./Store/Login/AuthCheck/AuthProvider";
+import { AuthProvider } from "./Store/Features/Login/AuthCheck/AuthProvider";
 
 import "../src/main.scss";
 
