@@ -66,7 +66,7 @@ export async function getUser(token) {
 
 // Modification des données de l'utilisateur à l'API 
 
-export async function updateUser(token, userData) {
+export async function updateUserAPI(token, userData) {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`); // Ajoute le token dans l'en-tête

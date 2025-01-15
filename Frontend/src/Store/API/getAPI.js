@@ -2,7 +2,7 @@ import { loginSuccess, setError } from "../Features/Login/AuthCheck/AuthSlice";
 import { loginUser } from "../../API/API";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getUser } from "../../API/API";
-import { updateUser as updateUserAPI } from "../../API/API";
+import { updateUserAPI } from "../../API/API";
 
 export const loginThunk = (email, password) => async (dispatch) => {
   try {
@@ -38,7 +38,7 @@ export const updateUser = createAsyncThunk(
   "auth/updateUser",
   async ({ token, userData }, { rejectWithValue }) => {
     try {
-      const response = await updateUser(token, userData);
+      const response = await updateUserAPI(token, userData);
       console.log("Réponse API :", response);
       return response.body;
     } catch (error) {
