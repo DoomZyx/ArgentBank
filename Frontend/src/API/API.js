@@ -1,4 +1,4 @@
-import { useAuth } from "Store/Features/Login/AuthCheck/AuthProvider";
+
 
 const API_BASE_URL = "http://localhost:3001/api";
 
@@ -38,8 +38,7 @@ export async function loginUser(email, password) {
 // Récupération des données de l'utilsateur connecté
 
 export async function getUser(token) {
-  const { getToken } = useAuth();
-  const token = getToken();
+
 
   const requestOption = {
     method: "GET",
@@ -59,6 +58,7 @@ export async function getUser(token) {
     }
 
     const data = await response.json();
+    console.log("Récupération des données de l'utilisateur réussie :", data);
     return data;
   } catch (error) {
     console.error(

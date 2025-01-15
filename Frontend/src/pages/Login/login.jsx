@@ -17,7 +17,6 @@ function Login() {
       const result = await loginUser(email, password);
 
       if (result && result.body && result.body.token) {
-        console.log("Connexion réussie, token reçu :", result.body.token);
         login(result.body.token); 
         setErrorMessage("");
         navigate("/user-page");

@@ -1,7 +1,20 @@
+import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../components/Footer/footer";
 import Nav from "../../components/Header/nav";
+import { useEffect } from "react";
+import { fetchUser } from "../../Store/API/getAPI";
 
 function UserPage() {
+  const dispatch = useDispatch();
+  const { token, user, error } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchUser(token)); // Récupérer les données utilisateur
+    }
+  }, [dispatch, token]);
+  console.log("Token :", token);
+
   return (
     <>
       <Nav />
@@ -10,10 +23,13 @@ function UserPage() {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {user && user.firstName && user.lastName
+              ? `${user.firstName} ${user.lastName}`
+              : "Impossible de récupérer les données.."}
           </h1>
           <button className="edit-button">Edit Name</button>
         </div>
+        {error && <p className="error">Erreur : {error}</p>}
         <h2 className="sr-only">Accounts</h2>
         <section className="account">
           <div className="account-content-wrapper">
