@@ -59,12 +59,12 @@ function UserPage() {
 
                 <div className="firstname-field">
                   <label htmlFor="name">First Name :</label>
-                  <input type="text" id="name" />
+                  <input type="text" id="name" disabled />
                 </div>
 
                 <div className="lastname-field">
                   <label htmlFor="lastname">Last Name :</label>
-                  <input type="text" id="lastname" />
+                  <input type="text" id="lastname" disabled />
                 </div>
 
                 <div className="field-button">

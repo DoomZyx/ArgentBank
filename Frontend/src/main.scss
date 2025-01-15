@@ -20,7 +20,7 @@ body {
 
 .bg-dark {
  background-color: #12002b;
- height: 82vh;
+ padding: 1rem;
 }
 
 .sr-only {
@@ -115,6 +115,7 @@ body {
 }
 
 @media (min-width: 920px) {
+
  .hero {
    height: 400px;
    background-position: 0% 33%;
