@@ -35,3 +35,31 @@ export async function loginUser(email, password) {
 
 // Récupération des données de l'utilsateur connecté 
 
+export async function getUser(token) {
+
+
+  const requestOption = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+       Authorization: `Bearer ${token}`
+    }
+  }
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/v1/user/profile`,
+      requestOption
+    )
+    if (!response.ok) {
+      throw new Error(`Erreur : ${response.status}`)
+    }
+
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    console.error("Erreur lors de la récupération des données de l'utilsateur connecté ;" , error)
+    throw new Error
+  }
+}
