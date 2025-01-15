@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = (token, userData) => {
-    console.log("token ajouté :", token);
     sessionStorage.setItem("token", token);
     setUser(userData) // Sauvegarde les données de l'utilisateur 
     setIsAuthenticated(true);

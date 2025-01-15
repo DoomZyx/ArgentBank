@@ -17,13 +17,19 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginSuccess: (state, action) => {
-      state.isLoggedIn = true;
-      state.user = action.payload;
-    },
+    // Lorsqu'un utilisateur se connecte avec succès
     login: (state, action) => {
-      state.token = action.payload.token;
+      const { token } = action.payload;
+      state.token = token;
       state.isLoggedIn = true;
+      sessionStorage.setItem("token", token); // Synchronise avec sessionStorage
+    },
+    loginSuccess: (state, action) => {
+      const { token } = action.payload;
+      state.token = token;
+      sessionStorage.setItem("token", token);
+      state.isLoggedIn = true;
+      state.user = action.payload; // Stocke les données utilisateur
     },
     logout: (state) => {
       state.token = null;
@@ -34,12 +40,13 @@ const authSlice = createSlice({
         lastName: "",
         email: "",
       };
+      sessionStorage.removeItem("token"); // Supprime le token de sessionStorage
     },
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.user = action.payload; // Met à jour les données utilisateur
     },
     setError: (state, action) => {
-      state.error = action.payload;
+      state.error = action.payload; // Gère les erreurs
     },
   },
   extraReducers: (builder) => {

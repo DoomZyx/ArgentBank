@@ -2,13 +2,17 @@ import { useState } from "react";
 import { useAuth } from "../../Store/Features/Login/AuthCheck/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../API/API";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../Store/Features/Login/AuthCheck/AuthSlice";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { login } = useAuth(); 
+
+  const { login } = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -17,7 +21,9 @@ function Login() {
       const result = await loginUser(email, password);
 
       if (result && result.body && result.body.token) {
-        login(result.body.token); 
+        login(result.body.token);
+        // Sauvegarde le token immédiatement après la connexion
+        dispatch(loginSuccess(result.body));
         setErrorMessage("");
         navigate("/user-page");
       } else {

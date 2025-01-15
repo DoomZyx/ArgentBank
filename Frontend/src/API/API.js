@@ -1,5 +1,3 @@
-
-
 const API_BASE_URL = "http://localhost:3001/api";
 
 // Connexion à l'API login
@@ -38,8 +36,6 @@ export async function loginUser(email, password) {
 // Récupération des données de l'utilsateur connecté
 
 export async function getUser(token) {
-
-
   const requestOption = {
     method: "GET",
     headers: {
@@ -58,7 +54,6 @@ export async function getUser(token) {
     }
 
     const data = await response.json();
-    console.log("Récupération des données de l'utilisateur réussie :", data);
     return data;
   } catch (error) {
     console.error(
