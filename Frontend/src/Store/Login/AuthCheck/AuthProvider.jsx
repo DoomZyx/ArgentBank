@@ -8,15 +8,19 @@ export const AuthProvider = ({ children }) => {
     !!sessionStorage.getItem("token")
   );
 
-  const login = (token) => {
+  const [user, setUser] = useState(null);
+
+  const login = (token, userData) => {
     console.log("token ajouté :", token);
     sessionStorage.setItem("token", token);
+    setUser(userData) // Sauvegarde les données de l'utilisateur 
     setIsAuthenticated(true);
   };
 
   const logout = () => {
     console.log("Déconnexion réussi");
     sessionStorage.removeItem("token");
+    setUser(null) // Supprime les données de l'utilisateur 
     setIsAuthenticated(false);
   };
 
@@ -25,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, getToken }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, getToken, user }}>
       {children}
     </AuthContext.Provider>
   );
