@@ -63,3 +63,34 @@ export async function getUser(token) {
     throw new Error();
   }
 }
+
+// Modification des données de l'utilisateur à l'API 
+
+export async function updateUser(token, userData) {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", `Bearer ${token}`); // Ajoute le token dans l'en-tête
+
+  const requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    body: JSON.stringify(userData), // Données utilisateur à envoyer
+    redirect: "follow",
+  };
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/v1/user/profile`, requestOptions);
+
+    if (!response.ok) {
+      throw new Error(`Erreur : ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour :", error);
+    throw error;
+  }
+}
+

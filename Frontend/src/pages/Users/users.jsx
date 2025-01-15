@@ -3,6 +3,7 @@ import Footer from "../../components/Footer/footer";
 import Nav from "../../components/Header/nav";
 import { useEffect, useState } from "react";
 import { fetchUser } from "../../Store/API/getAPI";
+import { updateUser } from "../../Store/API/getAPI";
 
 function UserPage() {
   const dispatch = useDispatch();
@@ -13,12 +14,37 @@ function UserPage() {
       dispatch(fetchUser(token)); // Récupérer les données utilisateur
     }
   }, [dispatch, token]);
-  console.log("Token :", token);
 
   const [edit, setEdit] = useState(false);
 
   const toggleEdit = () => {
     setEdit(!edit);
+  };
+
+  const [formData, setFormData] = useState({
+    userName: user.userName || "",
+  });
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        userName: user.userName || "",
+      });
+    }
+  }, [user]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateUser({ token, userData: formData }));
+    toggleEdit(); // Fermez le mode édition après mise à jour
   };
 
   return (
@@ -51,10 +77,15 @@ function UserPage() {
             <>
               <h1 className="edit-title">Edit user info</h1>
 
-              <div className="editProfile">
+              <form className="editProfile" onSubmit={handleSubmit}>
                 <div className="username-field">
                   <label htmlFor="username">Username :</label>
-                  <input type="text" id="username" />
+                  <input
+                    type="text"
+                    id="userName"
+                    value={formData.userName}
+                    onChange={handleInputChange}
+                  />
                 </div>
 
                 <div className="firstname-field">
@@ -68,13 +99,15 @@ function UserPage() {
                 </div>
 
                 <div className="field-button">
-                  <button className="save-button">Save</button>
+                  <button className="save-button" type="submit">
+                    Save
+                  </button>
 
                   <button onClick={toggleEdit} className="cancel-button">
                     Cancel
                   </button>
                 </div>
-              </div>
+              </form>
             </>
           )}
         </div>

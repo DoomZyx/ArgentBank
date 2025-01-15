@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUser } from "../../../API/getAPI"; 
+import { updateUser } from "../../../API/getAPI";
 
 const initialState = {
   token: sessionStorage.getItem("token") || null, // Récupérer le token
   isLoggedIn: !!sessionStorage.getItem("token"),
   user: {
     id: "",
+    userName: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -50,6 +52,7 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Gestion de fetchUser
     builder
       .addCase(fetchUser.pending, (state) => {
         state.error = null;
@@ -60,8 +63,22 @@ const authSlice = createSlice({
       .addCase(fetchUser.rejected, (state, action) => {
         state.error = action.payload; // Enregistrer l'erreur
       });
+
+    // Gestion de updateUser
+    builder.addCase(updateUser.pending, (state) => {
+      state.error = null;
+    });
+    builder.addCase(updateUser.fulfilled, (state, action) => {
+      console.log("Données mises à jour :", action.payload);
+      state.user = { ...state.user, ...action.payload }; // Mettez à jour les données utilisateur
+    });
+
+    builder.addCase(updateUser.rejected, (state, action) => {
+      state.error = action.payload; // Enregistrer l'erreur
+    });
   },
 });
+
 
 export const { loginSuccess, login, logout, setUser, setError } =
   authSlice.actions;
