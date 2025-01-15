@@ -1,5 +1,5 @@
 import agentBankLogo from "../../assets/img/argentBankLogo.png";
-import { useAuth } from "../../components/AuthCheck/AuthCheck";
+import { useAuth } from "../../Store/Login/AuthCheck/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 function Nav() {

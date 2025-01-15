@@ -13,3 +13,5 @@ export const loginThunk = (email, password) => async (dispatch) => {
     dispatch(setError("Une erreur s'est produite lors de la connexion"));
   }
 };
+
+
