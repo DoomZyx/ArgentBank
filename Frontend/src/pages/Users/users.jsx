@@ -23,8 +23,8 @@ function UserPage() {
           <h1>
             Welcome back
             <br />
-            {user && user.firstName && user.lastName
-              ? `${user.firstName} ${user.lastName}`
+            {user && user.userName
+              ? `${user.userName} !`
               : "Impossible de récupérer les données.."}
           </h1>
           <button className="edit-button">Edit Name</button>
