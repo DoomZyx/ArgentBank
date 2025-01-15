@@ -7,7 +7,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { login } = useAuth(); // Importez la fonction login
+  const { login } = useAuth(); 
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -17,8 +17,8 @@ function Login() {
       const result = await loginUser(email, password);
 
       if (result && result.body && result.body.token) {
-        console.log("Connexion réussie, token reçu :", result.body.token); // Vérifiez que ceci s'affiche
-        login(result.body.token); // Appelez login pour mettre à jour le contexte
+        console.log("Connexion réussie, token reçu :", result.body.token);
+        login(result.body.token); 
         setErrorMessage("");
         navigate("/user-page");
       } else {
