@@ -1,5 +1,6 @@
 import { loginSuccess, setError } from "../../Store/Login/AuthSlice";
 import { loginUser } from "../../API/API";
+import { isRejectedWithValue } from "../../../node_modules/@reduxjs/toolkit/dist/index";
 
 export const loginThunk = (email, password) => async (dispatch) => {
   try {
@@ -14,4 +15,16 @@ export const loginThunk = (email, password) => async (dispatch) => {
   }
 };
 
+// Récupération des données de l'utilsateur en appelant l'API getUser
 
+export const fetchUser = createAsyncThunk(
+  "user/fetchUser", 
+  async (token, { isRejectedWithValue}) => {
+    try {
+      const data = await getUser(token);
+      return data.body;
+    } catch (error) {
+      return isRejectedWithValue(error.message);
+    }
+  }
+);
