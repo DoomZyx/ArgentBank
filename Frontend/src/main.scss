@@ -267,6 +267,41 @@ body {
  flex: 1;
 }
 
+.editProfile {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  & input .firstname-field,
+  input .lastname-field {
+    width: 45%;
+  }
+}
+
+input .username-field {
+  width: 46%;
+}
+
+.username-field, .firstname-field, .lastname-field {
+  display: flex;
+  flex-direction: row;
+}
+
+.username-field {
+  margin-left: 4px
+}
+
+.field-button {
+  display: flex;
+  gap: 10px;
+  & button {
+    width: 8em;
+    height: 2.5em;
+  }
+}
+
 .edit-button {
  border-color: #00bc77;
  background-color: #00bc77;
