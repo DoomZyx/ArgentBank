@@ -21,6 +21,7 @@ body {
 .bg-dark {
  background-color: #12002b;
  padding: 1rem;
+ height: 95vh
 }
 
 .sr-only {
@@ -78,6 +79,7 @@ body {
   font-size: 1rem;
   color: #2c3e50;
   font-weight: bold;
+  background: none;
 }
 
 .logout-button:hover {
@@ -184,10 +186,10 @@ body {
  box-sizing: border-box;
  background-color: white;
  width: 300px;
- height: 450px;
+ height: 360px;
  margin: 0 auto;
  position: relative;
- top: 9em;
+ top: 5em;
  padding: 2rem;
 }
 
