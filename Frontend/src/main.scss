@@ -18,10 +18,14 @@ body {
 
 }
 
+.mainn.bg-dark {
+  height: 100vh;
+}
+
+
 .bg-dark {
  background-color: #12002b;
  padding: 1rem;
- height: 95vh
 }
 
 .sr-only {
@@ -186,10 +190,9 @@ body {
  box-sizing: border-box;
  background-color: white;
  width: 300px;
- height: 360px;
+ height: 420px;
  margin: 0 auto;
  position: relative;
- top: 5em;
  padding: 2rem;
 }
 

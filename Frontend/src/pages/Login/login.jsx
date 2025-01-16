@@ -1,3 +1,5 @@
+import Nav from "../../components/Header/nav"
+import Footer from "../../components/Footer/footer";
 import { useState } from "react";
 import { useAuth } from "../../Store/Features/Login/AuthCheck/AuthProvider";
 import { useNavigate } from "react-router-dom";
@@ -36,35 +38,39 @@ function Login() {
   };
 
   return (
-    <main className="main bg-dark">
-      <section className="sign-in-content">
-        <h1>Sign In</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="input-wrapper">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="input-wrapper">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit" className="sign-in-button">
-            Sign In
-          </button>
-        </form>
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      </section>
-    </main>
+    <>
+    <Nav />
+      <main className="main bg-dark">
+        <section className="sign-in-content">
+          <h1>Sign In</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="input-wrapper">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button type="submit" className="sign-in-button">
+              Sign In
+            </button>
+          </form>
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 }
 

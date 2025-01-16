@@ -40,7 +40,6 @@ function UserPage() {
       });
     }
   }, [user]);
-  console.log("User mis à jour :", user)
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -24,7 +24,6 @@ export const fetchUser = createAsyncThunk(
   async (token, { isRejectedWithValue }) => {
     try {
       const data = await getUser(token);
-      console.log(data.body);
       return data.body;
     } catch (error) {
       return isRejectedWithValue(error.message);
@@ -39,7 +38,6 @@ export const updateUser = createAsyncThunk(
   async ({ token, userData }, { rejectWithValue }) => {
     try {
       const response = await updateUserAPI(token, userData);
-      console.log("Réponse API :", response);
       return response.body;
     } catch (error) {
       console.error("Erreur lors de la mise à jour :", error);

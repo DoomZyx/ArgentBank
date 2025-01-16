@@ -69,7 +69,6 @@ const authSlice = createSlice({
       state.error = null;
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
-      console.log("Données mises à jour :", action.payload);
       state.user = { ...state.user, ...action.payload }; // Mettez à jour les données utilisateur
     });
 
