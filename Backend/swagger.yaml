@@ -57,6 +57,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
   /user/profile:
     get:
       security:
@@ -156,3 +157,52 @@ definitions:
     properties:
       userName:
         type: string
+
+  /transaction:
+    get:
+      summary: Fetch all transactions
+      description: Allows you to retrieve all transactions associated with the logged in user.
+      security:
+        - bearerAuth: []  # Indique que cette route nécessite un token JWT
+      parameters:
+        - in: body
+          name: body
+          description: fetch all transactions
+          required: true
+          schema:
+            $ref: '#/definitions/transactions'
+      responses:
+        '200':
+          description: Transactions list retrieved successfuly.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+        '401':
+          description: Unauthorized, token invalide or missing.
+        '500':
+          description: Internal server error.
+    put:
+      summary: Update transactions
+      description: Allows you to update transactions associated with the logged in user.
+      security: 
+        BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transaction'
+        responses:
+          '200':
+            description: Transactions updated successfuly.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Transaction'
+          '401':
+            description: Unauthorized, token invalide or missing.
+          '500':
+            description: Internal server error.
