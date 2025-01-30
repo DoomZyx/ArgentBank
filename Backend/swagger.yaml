@@ -101,7 +101,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /transaction/collect:
+  /transactions:
     get:
       tags:
       - Transaction Module
@@ -120,8 +120,27 @@ paths:
           description: Unauthorized. Token is invalid or missing.
         '500':
           description: Internal server error.
-  /transaction/data:
-    post:
+  /transactions/details:
+    get:
+      tags:
+      - Transaction Module
+      summary: Fetch transactions details
+      description: Retrieve all transactions details for the logged-in user .
+      security:
+        - Bearer: []
+      responses:
+        '200':
+          description: Transaction details retrieved successfully.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/collectResponse'
+        '401':
+          description: Unauthorized. Token is invalid or missing.
+        '500':
+          description: Internal server error.
+  /transaction:
+    put:
       tags:
       - Transaction Module
       summary: Update a transaction
