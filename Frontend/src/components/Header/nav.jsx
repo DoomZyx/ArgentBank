@@ -1,4 +1,4 @@
-import agentBankLogo from "../../assets/img/argentBankLogo.png";
+import agentBankLogo from "../../assets/img/argentBankLogo.webp";
 import { useAuth } from "../../Store/Features/Login/AuthCheck/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -12,7 +12,6 @@ function Nav() {
     logout();
     navigate("/");
   };
-
 
   return (
     <nav className="main-nav">

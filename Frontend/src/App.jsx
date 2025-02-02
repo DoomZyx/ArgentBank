@@ -3,9 +3,8 @@ import Homepage from "./pages/Home/home";
 import Login from "./pages/Login/login";
 import UserPage from "./pages/Users/users";
 import { AuthProvider } from "./Store/Features/Login/AuthCheck/AuthProvider";
-
+import ProtectedRoute from "./components/Authentification/authentification";
 import "../src/main.scss";
-import ProtectedRoute from "components/Authentification/authentification";
 
 function App() {
   return (
