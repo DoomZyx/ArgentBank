@@ -5,6 +5,7 @@ import UserPage from "./pages/Users/users";
 import { AuthProvider } from "./Store/Features/Login/AuthCheck/AuthProvider";
 
 import "../src/main.scss";
+import ProtectedRoute from "components/Authentification/authentification";
 
 function App() {
   return (
@@ -13,7 +14,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="*" element={<Login />} />
-          <Route path="/user-page" element={<UserPage />} />
+          <Route
+            path="/user-page"
+            element={
+              <ProtectedRoute>
+                <UserPage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </AuthProvider>
