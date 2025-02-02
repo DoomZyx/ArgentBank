@@ -1,16 +1,18 @@
 import agentBankLogo from "../../assets/img/argentBankLogo.png";
 import { useAuth } from "../../Store/Features/Login/AuthCheck/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Nav() {
-  
   const { isAuthenticated, logout } = useAuth();
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
+
 
   return (
     <nav className="main-nav">
@@ -22,6 +24,7 @@ function Nav() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </a>
+      {isAuthenticated && <p className="user-name">{user.userName}</p>}
       <div>
         <ul>
           {isAuthenticated ? (

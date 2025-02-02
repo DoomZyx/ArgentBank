@@ -12,7 +12,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token, userData) => {
     sessionStorage.setItem("token", token);
-    setUser(userData) // Sauvegarde les données de l'utilisateur 
+    setUser(userData); // Sauvegarde les données de l'utilisateur
+    setUser(true);
     setIsAuthenticated(true);
   };
 
