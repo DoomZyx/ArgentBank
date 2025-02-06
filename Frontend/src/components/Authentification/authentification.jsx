@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-// ✅ Validation des props
+//  Validation des props
 ProtectedRoute.propTypes = {
   children: PropTypes.node.isRequired, // Vérifie que l'enfant est bien passé
 };

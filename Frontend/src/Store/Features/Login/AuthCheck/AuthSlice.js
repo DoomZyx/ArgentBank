@@ -54,12 +54,15 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     // Gestion de fetchUser
     builder
+    // Attente de requête 
       .addCase(fetchUser.pending, (state) => {
         state.error = null;
       })
+      // requête accepté 
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.user = action.payload; // Mettre à jour les données utilisateur
       })
+      // Requête rejeté 
       .addCase(fetchUser.rejected, (state, action) => {
         state.error = action.payload; // Enregistrer l'erreur
       });
