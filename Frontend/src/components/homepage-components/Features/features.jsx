@@ -1,8 +1,8 @@
-import FeaturesItemData from "../../data/featuresItems/featuresItem.json";
-import Item from "../../components/FeaturesItems/FeaturesItem";
-import iconChat from "../../assets/img/icon-chat.webp";
-import iconMoney from "../../assets/img/icon-money.webp";
-import iconSecurity from "../../assets/img/icon-security.webp";
+import FeaturesItemData from "../../../data/featuresItems/featuresItem.json";
+import Item from "../../Map/FeaturesItems/FeaturesItem";
+import iconChat from "../../../assets/img/icon-chat.webp";
+import iconMoney from "../../../assets/img/icon-money.webp";
+import iconSecurity from "../../../assets/img/icon-security.webp";
 
 function Features() {
   const imageData = {
