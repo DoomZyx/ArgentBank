@@ -12,7 +12,7 @@ function UserPage() {
 
   useEffect(() => {
     if (token) {
-      dispatch(fetchUser(token)); // Récupérer les données utilisateur
+      dispatch(fetchUser(token)); // Récupérer les données utilisateur et vérifie si le token est présent avant de les récuperer 
     }
   }, [dispatch, token]);
 
@@ -22,10 +22,12 @@ function UserPage() {
     setEdit(!edit);
   };
 
+  // Création du state pour sauvegarder la valuer de userName 
   const [formData, setFormData] = useState({
     userName: user.userName || "",
   });
 
+  // Permet de changer la valeur de l'input userName
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -34,6 +36,7 @@ function UserPage() {
     }));
   };
 
+  // Enregistre la nouvelle valeur dans l'état setFormData 
   useEffect(() => {
     if (user) {
       setFormData({
@@ -41,11 +44,11 @@ function UserPage() {
       });
     }
   }, [user]);
-
+  // Sauvegarde dans le store le nouveau nom d'utilsateur une fois que le bouton save est cliqué 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUser({ token, userData: formData }));
-    toggleEdit(); // Fermez le mode édition après mise à jour
+    toggleEdit(); // Ferme le mode édition une fois que la modif est sauvgardé 
   };
 
   return (
