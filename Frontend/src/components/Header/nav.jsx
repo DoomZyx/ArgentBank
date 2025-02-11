@@ -2,6 +2,7 @@ import agentBankLogo from "../../assets/img/argentBankLogo.webp";
 import { useAuth } from "../../Store/Features/Login/AuthCheck/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Nav() {
   const { isAuthenticated, logout } = useAuth();
@@ -31,10 +32,12 @@ function Nav() {
               Logout
             </button>
           ) : (
-            <a className="main-nav-item" href="./sign-in.html">
-              <i className="fa fa-user-circle"></i>
-              Sign In
-            </a>
+            <div className="main-nav-item">
+              <Link className="main-nav-item" to="/login">
+                <i className="fa fa-user-circle"></i>
+                Sign In
+              </Link>
+            </div>
           )}
         </ul>
       </div>
