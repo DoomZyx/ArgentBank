@@ -101,14 +101,20 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /transactions:
+  /transactions/:
     get:
+      security:
+        - Bearer: []
       tags:
       - Transaction Module
       summary: Fetch all transactions
       description: Retrieve all transactions for the logged-in user.
-      security:
-        - Bearer: []
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Bearer JWT token required
+          required: true
       responses:
         '200':
           description: Transactions retrieved successfully.
@@ -120,51 +126,84 @@ paths:
           description: Unauthorized. Token is invalid or missing.
         '500':
           description: Internal server error.
-  /transactions/details:
+  /transactions/details/{userId}{transactionId}:
     get:
+      security:
+        - Bearer: []
       tags:
       - Transaction Module
       summary: Fetch transactions details
-      description: Retrieve all transactions details for the logged-in user .
-      security:
-        - Bearer: []
+      description: Retrieve all transactions details for the logged-in user.
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Bearer JWT token required
+          required: true
+        - in: path
+          type: string
+          name: userId
+          description: The User ID
+          required: true
+        - in: path
+          type: string
+          name: transactionId
+          description: The ID of the transaction
+          required: true
       responses:
         '200':
           description: Transaction details retrieved successfully.
           schema:
             type: array
             items:
-              $ref: '#/definitions/collectResponse'
+              $ref: '#/definitions/collectResponseDetails'
         '401':
           description: Unauthorized. Token is invalid or missing.
         '500':
           description: Internal server error.
-  /transaction:
+  /transactions/details/{userID}/{transactionID}:
     put:
-      tags:
-      - Transaction Module
-      summary: Update a transaction
-      description: Update the details of a specific transaction.
       security:
         - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Transaction API
+      description: API to get the list of transactions for a specific account and a specific user
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Bearer JWT token required
+          required: true
+        - in: path
+          type: string
+          name: userID
+          description: The User ID
+          required: true
+        - in: path
+          type: string
+          name: transactionID
+          description: The transaction ID
+          required: true
+        - in: query
+          type: string
+          name: month
+          description: Selected month
+          required: false
       produces:
         - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Transaction details to update
-          required: true
-          schema:
-            $ref: '#/definitions/PostTransaction'
       responses:
-        '200':
-          description: Transaction updated successfully.
+        "200":
+          description: Transaction retrieved successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '401':
-          description: Unauthorized. Token is invalid or missing.
-        '500':
-          description: Internal server error.
+            $ref: "#/definitions/UpdateTransaction"
+        "400":
+          description: Invalid Fields
+        '404':
+          description: Invalid userId or accountId
+        "500":
+          description: Internal Server Error
+
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -225,34 +264,47 @@ definitions:
   collectResponse:
     type: object
     properties:
+      userID:
+        type: string
+        description: The ID of user connected
+      transactionID:
+        type: string
+        description: The ID of the transaction
       amount:
         type: string
         description: The amount of the transaction
+      balance:
+        type: string
+        description: the balance of the transaction
       date:
         type: string
         description: The date of the transaction
-      transactionType:
-        type: string
-        description: The type of transaction
-      category:
-        type: string
-        description: The category of the transaction
-      note:
-        type: string
-        description: Additional notes for the transaction
-  PostTransaction:
+  collectResponseDetails:
     type: object
     properties:
-      transactionId:
+      userID:
         type: string
-        description: The ID of the transaction to update
-      amount:
+        description: The ID of user connected
+      transactionID: 
         type: string
-        description: Updated amount for the transaction
+        description: The ID of the transaction to retrieve
+      transaction type:
+        type: string
+      category: 
+        type: string
+        description: The category of the transaction
+      note: 
+        type: string
+        description: Additional notes for the transaction
+  UpdateTransaction:
+    type: object
+    properties:
       category:
         type: string
         description: Updated category for the transaction
       note:
         type: string
         description: Additional notes for the transaction
-
+    required:
+      - category
+      - note
