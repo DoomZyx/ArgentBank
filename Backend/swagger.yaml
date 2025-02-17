@@ -108,7 +108,7 @@ paths:
       tags:
       - Transaction Module
       summary: Fetch all transactions
-      description: Retrieve all transactions for the logged-in user.
+      description: Retrieve all transactions for the logged-in user in the current month.
       parameters:
         - in: header
           type: string
@@ -126,7 +126,7 @@ paths:
           description: Unauthorized. Token is invalid or missing.
         '500':
           description: Internal server error.
-  /transactions/details/{userId}{transactionId}:
+  /transactions/details/{transactionId}:
     get:
       security:
         - Bearer: []
@@ -139,11 +139,6 @@ paths:
           type: string
           name: Authorization
           description: Bearer JWT token required
-          required: true
-        - in: path
-          type: string
-          name: userId
-          description: The User ID
           required: true
         - in: path
           type: string
@@ -161,7 +156,6 @@ paths:
           description: Unauthorized. Token is invalid or missing.
         '500':
           description: Internal server error.
-  /transactions/details/{userID}/{transactionID}:
     put:
       security:
         - Bearer: []
@@ -177,19 +171,16 @@ paths:
           required: true
         - in: path
           type: string
-          name: userID
-          description: The User ID
-          required: true
-        - in: path
-          type: string
           name: transactionID
           description: The transaction ID
           required: true
-        - in: query
-          type: string
-          name: month
-          description: Selected month
-          required: false
+        - in: body
+          name: body
+          description: The category of the transaction
+          required: true
+          schema: 
+              $ref: "#/definitions/UpdateTransactionBody"
+              
       produces:
         - application/json
       responses:
@@ -264,9 +255,6 @@ definitions:
   collectResponse:
     type: object
     properties:
-      userID:
-        type: string
-        description: The ID of user connected
       transactionID:
         type: string
         description: The ID of the transaction
@@ -279,12 +267,12 @@ definitions:
       date:
         type: string
         description: The date of the transaction
+      description:
+        type: string
+        description: The description of the transaction
   collectResponseDetails:
     type: object
     properties:
-      userID:
-        type: string
-        description: The ID of user connected
       transactionID: 
         type: string
         description: The ID of the transaction to retrieve
@@ -296,6 +284,15 @@ definitions:
       note: 
         type: string
         description: Additional notes for the transaction
+  UpdateTransactionBody:
+    type: object
+    properties:
+      category:
+        type: string
+        description: Updated category for the transaction
+      note:
+        type: string
+        description: Additionnal notes for the transaction
   UpdateTransaction:
     type: object
     properties:

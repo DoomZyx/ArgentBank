@@ -94,12 +94,12 @@ function UserPage() {
 
                 <div className="firstname-field">
                   <label htmlFor="name">First Name :</label>
-                  <input type="text" id="name" disabled />
+                  <input type="text" id="name" disabled value={user.firstName || ""}/>
                 </div>
 
                 <div className="lastname-field">
                   <label htmlFor="lastname">Last Name :</label>
-                  <input type="text" id="lastname" disabled />
+                  <input type="text" id="lastname" disabled value={user.lastName || ""}/>
                 </div>
 
                 <div className="field-button">
